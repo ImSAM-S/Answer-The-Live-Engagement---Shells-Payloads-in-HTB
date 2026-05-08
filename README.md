@@ -48,7 +48,7 @@ After establishing initial access xfreerdp, i used nmap to conduct port scan on 
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic3_scan_port.png)
 
-Setence 1: What is the hostname of Host-1? look at the picture that we can see it is "shells-winsvr"
+Setence 1: What is the hostname of Host-1? look at the picture that we can see it is | **shells-winsvr**
 
 Searched: "status.inlanefreight.local" like what we scaned. Bonus, how to open firefox too.
 
@@ -68,11 +68,11 @@ After you dowloaded (asp file), you need to push your own **ip** in your compute
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic6_more_ip.png)
 
-So when you done with asp file. Now you go back to "statis.inlanefreight.local" to upload that file. And if you done of upload, so now you can search: "statis.inlanefreight.local/files/shell.aspx" to connect webshell - shell.aspx is your file's name uploaded.
+So when you done with asp file. Now you go back to "status.inlanefreight.local" to upload that file. And if you done of upload, so now you can search: "status.inlanefreight.local/files/shell.aspx" to connect webshell - shell.aspx is your file's name uploaded.
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic7_answer_N1.png)
 
-Now you have successfully obtained a shell and can now access the folder located at C:\Shares
+Now you have successfully obtained a shell and can now access the folder located at C:\Shares. 'Exploit the target and gain a shell session. Submit the name of the folder located in C:\Shares\ (Format: all lower case)' | **dev-share**
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic8_answer_N2.png)
 
@@ -85,7 +85,7 @@ Next is scanning:
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic10_scan_ip2.png)
 
-'What distribution of Linux is running on Host-2? (Format: distro name, all lower case)' **Ubuntu**
+'What distribution of Linux is running on Host-2? (Format: distro name, all lower case)' | **Ubuntu**
 Two ports are open, 22 and 80. But this attack requires authentication, so i conducted directory enumeration to gather additional information.
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic11_enum.png)
@@ -95,27 +95,69 @@ At the line 1 of results, we saw a folder is data. Upon accessing it, I enterned
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/main/pic12_username.png)
 
 So, the hardest i have faces in here you dont know what payloads i can use now! I look at the stences4 and realized the '50064' vulnerabbility and upon accessing port 80, a post directing to an exploit named 50064.
-
 Now i will find '50064' at Foothold and hope it has, i didnt want to dowload it files. And lucky me it had
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic13_50064rb.png)
 
+Answer the question:'What language is the shell written in that gets uploaded when using the 50064.rb exploit?' It **php**
 So next i opend metasploit and searched it and used it:
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic14_msf.png)
-
-Answer the question:'What language is the shell written in that gets uploaded when using the 50064.rb exploit?' It **php**
 
 Find and read flag.txt:'Exploit the blog site and establish a shell session with the target OS. Submit the contents of /customscripts/flag.txt' **B1nD_Shells_r_cool**
 
 ![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/30eefafd7d4ad001f879cda54dcdb17ba5a71a3e/pic15_read_flag.png)
 
+Now, the last challenge, let's exploit third target: **172.16.1.13**
+Scan for sure
 
+![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/0b200356e15ac18a861d7f0cad190129bfa01979/pic16_scan_ip3.png)
 
+I discovered that the server operates on Windows Server 2016 and the SMB protocol (445/tcp) is open.Now i tried to figure it out what vulnerability can uses to exploit it. So look at the hint: 'This host is vulnerable to a very common exploit released in 2017. It has been known to make many a sysadmin feel Blue.'
 
+It seem like Eternalblu (ms17_010) so i choose metasploit to check it
 
+![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/0b200356e15ac18a861d7f0cad190129bfa01979/pic17_check_ip3_host.png)
 
+So yea! It like what i thought, it is MS17-010!
+Now let's exploit it!
 
+![image alt](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/0b200356e15ac18a861d7f0cad190129bfa01979/pic18_exploit_WannaCry.png)
 
+Finally! We can access to the flag and answer the question
 
+![image](https://github.com/ImSAM-S/Answer-The-Live-Engagement---Shells-Payloads-in-HTB/blob/0b200356e15ac18a861d7f0cad190129bfa01979/pic19_finally.png)
 
+What is the hostname of Host-3? | **SHELLS-WINBLUE**
+Exploit and gain a shell session with Host-3. Then submit the contents of C:\Users\Administrator\Desktop\Skills-flag.txt | **One-H0st-Down!**
+
+Thanks for taking the time to real all of this writeup. Have you a good day
+
+## Project Files
+
+```tree
+Answer-The-Live-Engagement---Shells-Payloads-in-HTB
+├── pic0_quess_and_answer.png
+├── pic1_target_hosts.png
+├── pic2_connect.png
+├── pic3_scan_port.png
+├── pic4_open_firefox.png
+├── pic5_who_write_payload.png
+├── pic6_more_ip.png
+├── pic7_answer_N1.png
+├── pic8_answer_N2.png
+├── pic9_find_ip2.png
+├── pic10_scan_ip2.png
+├── pic11_enum.png
+├── pic12_username.png
+├── pic13_50064rb.png
+├── pic14_msf.png
+├── pic15_read_flag.png
+├── pic16_scan_ip3.png
+├── pic17_check_ip3_host.png
+├── pic18_exploit_WannaCry.png
+├── pic19_finally.png
+└──README.md
+```
+## Author
+ImSAM-S
